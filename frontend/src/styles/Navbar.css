@@ -1,0 +1,47 @@
+/* This part removes the dots and default spacing you see in your screenshots */
+.nav-menu, .nav-menu li {
+  list-style: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  width: 100%;
+  background: #fff;
+  padding: 15px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.nav-container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Pushes Logo left, Login right */
+}
+
+.nav-center {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 20px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #f3f3f3;
+  padding: 5px 15px;
+  border-radius: 20px;
+  border: 1px solid #BCE3C9;
+}
+
+.search-bar input {
+  border: none;
+  background: transparent;
+  outline: none;
+}

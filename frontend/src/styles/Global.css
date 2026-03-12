@@ -1,0 +1,27 @@
+:root {
+  --green-cart-primary: #3BB77E;
+  --green-cart-dark: #253D4E;
+  --text-muted: #ADADAD;
+  --border-light: #ececec;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-card {
+  border: 1px solid var(--border-light);
+  border-radius: 15px;
+  padding: 15px;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--green-cart-primary);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}

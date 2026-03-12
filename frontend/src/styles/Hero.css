@@ -1,0 +1,36 @@
+.hero-section {
+  width: 95%;
+  max-width: 1400px;
+  margin: 20px auto;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  color: #253D4E;
+  line-height: 1.2;
+  margin-bottom: 30px;
+}
+
+.shop-now {
+  background: #3BB77E;
+  color: white;
+  border: none;
+  padding: 15px 35px;
+  border-radius: 30px;
+  font-weight: bold;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.explore-deals {
+  color: #253D4E;
+  font-weight: 600;
+  cursor: pointer;
+}
