@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Auth = () => {
+  // 1. CHANGE THIS TO YOUR ACTUAL RENDER URL
+  const BASE_URL = "https://your-backend-name.onrender.com"; 
+
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -20,10 +23,13 @@ const Auth = () => {
     e.preventDefault();
     setStatusMsg({ type: '', text: '' });
 
-    const endpoint = isLogin ? '/api/auth/login' : '/api/auth/signup';
+    // 2. Updated to use BASE_URL
+    const endpoint = isLogin 
+      ? `${BASE_URL}/api/auth/login` 
+      : `${BASE_URL}/api/auth/signup`;
     
     try {
-      // --- 1. ADMIN BYPASS LOGIC ---
+      // --- ADMIN BYPASS LOGIC ---
       if (isLogin && formData.email === "admin@greencart.com" && formData.password === "admin123") {
         localStorage.setItem('isLoggedIn', 'true');
         localStorage.setItem('isSeller', 'true'); 
@@ -31,15 +37,14 @@ const Auth = () => {
           id: "admin_root",
           email: formData.email, 
           fullName: "Admin",
-          address: "" // Admins start with a clean address slate
+          address: "" 
         }));
         
-        // Force refresh to clear any previous user's memory
         window.location.href = '/seller-dashboard'; 
         return;
       }
 
-      // --- 2. API FETCH CALL ---
+      // --- API FETCH CALL ---
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -53,19 +58,16 @@ const Auth = () => {
       }
 
       if (!isLogin) {
-        // --- SIGNUP SUCCESS ---
         setStatusMsg({ type: 'success', text: "Account created! Please login now." });
         setIsLogin(true);
         setFormData({ ...formData, password: '', fullName: '' });
       } else {
-        // --- 3. LOGIN SUCCESS & DATA ISOLATION ---
         localStorage.setItem('isLoggedIn', 'true');
         
+        // Use the actual email from DB response for the seller check
         const isSeller = data.email === "admin@greencart.com";
         localStorage.setItem('isSeller', isSeller ? 'true' : 'false'); 
         
-        // Save fresh user data and explicitly set address to empty if not found
-        // This ensures the next user doesn't "inherit" Umer's address
         localStorage.setItem('user', JSON.stringify({
           id: data.id || data._id, 
           email: data.email,
@@ -73,8 +75,6 @@ const Auth = () => {
           address: data.address || "" 
         }));
         
-        // USE window.location.href INSTEAD OF navigate
-        // This forces a full app reset and re-runs all Context effects
         window.location.href = isSeller ? '/seller-dashboard' : '/'; 
       }
     } catch (err) {
